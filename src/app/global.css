@@ -1,0 +1,44 @@
+.main-container {
+    @apply min-h-screen flex flex-col justify-between bg-gray-900 text-white p-4 overflow-hidden;
+  }
+  
+  .screen {
+    @apply flex-grow absolute w-1/2 m-auto right-0 left-0 top-0 bottom-0 h-fit overflow-hidden;
+  }
+  
+  .video-container {
+    @apply relative w-full max-w-md mx-auto aspect-[3/4] overflow-hidden rounded-lg shadow-lg;
+  }
+  
+  .video-element,
+  .captured-image {
+    @apply w-full h-full object-cover;
+  }
+  
+  .reset-btn {
+    @apply absolute top-2 right-2 bg-red-600 text-white px-4 py-2 rounded shadow;
+  }
+  
+  .capture-btn {
+    @apply absolute m-2 bottom-16 bg-blue-600 text-white px-4 py-2 left-0 right-0;
+  }
+  
+  .file-input-label {
+    @apply absolute m-2 bottom-4 bg-green-600 text-white px-4 py-2 rounded cursor-pointer left-0 right-0;
+  }
+  
+  .file-input {
+    @apply hidden;
+  }
+  
+  .error-message {
+    @apply text-red-500 text-center mt-2;
+  }
+  
+  .item-name {
+    @apply text-center font-semibold text-lg mt-4;
+  }
+  
+  .results {
+    @apply bg-white text-black p-4 mt-4 rounded shadow space-y-2 opacity-100 duration-150;
+  }
