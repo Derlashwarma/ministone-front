@@ -1,13 +1,13 @@
 .main-container {
-    @apply min-h-screen flex flex-col justify-between bg-gray-900 text-white p-4 overflow-hidden;
+    @apply h-screen flex flex-col justify-between bg-gray-800 text-white;
   }
   
   .screen {
-    @apply flex-grow absolute w-1/2 m-auto right-0 left-0 top-0 bottom-0 h-fit overflow-hidden;
+    @apply p-5 rounded-xl shadow-green-400 flex-grow gap-10 absolute w-1/2 m-auto right-0 left-0 top-0 bottom-0 h-fit overflow-hidden flex flex-row shadow-xl;
   }
   
   .video-container {
-    @apply relative w-full max-w-md mx-auto aspect-[3/4] overflow-hidden rounded-lg shadow-lg;
+    @apply relative w-full max-w-md mx-auto overflow-hidden rounded-lg shadow-lg;
   }
   
   .video-element,
@@ -36,9 +36,21 @@
   }
   
   .item-name {
-    @apply text-center font-semibold text-lg mt-4;
+    @apply text-center font-black text-5xl;
   }
   
   .results {
-    @apply bg-white text-black p-4 mt-4 rounded shadow space-y-2 opacity-100 duration-150;
+    @apply p-4 mt-4 rounded space-y-2 opacity-100 duration-150 text-gray-400 flex flex-col gap-5;
+  }
+
+  .title {
+    @apply text-7xl text-center font-black top-10 absolute w-full text-green-500;
+  }
+
+  .label{
+    @apply text-gray-200 font-semibold
+  }
+
+  .error-shadow{
+    @apply shadow-red-800 shadow-xl
   }

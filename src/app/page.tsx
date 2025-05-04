@@ -2,6 +2,17 @@
 import { useState, useRef, useEffect } from "react"
 import API from "../../api/api"
 import './global.css'
+import { Poppins, Roboto } from "next/font/google"
+
+const poppinstFont = Poppins({
+    subsets: ['latin'],
+    weight: ["100", "200", "300", "400", "500", "900"]
+})
+
+const robotoFont = Roboto({
+    subsets: ['latin'],
+    weight: ["100", "200", "300", "400", "500", "700","900"]
+})
 
 type DataState = {
     item_description: string;
@@ -12,12 +23,13 @@ type DataState = {
 export default function Main() {
     const [item, setItem] = useState("")
     const [error, setError] = useState("")
-    const [data, setData] = useState<DataState | null>(null)
+    const [data, setData] = useState<DataState | null>()
     const [isLoading, setIsLoading] = useState(false)
     const [capturedImage, setCapturedImage] = useState<string | null>(null)
     const videoRef = useRef<HTMLVideoElement>(null)
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const streamRef = useRef<MediaStream | null>(null)
+    const [fetching, setFetching] = useState(null);
 
     // Initialize camera
     useEffect(() => {
@@ -102,6 +114,28 @@ export default function Main() {
         }
     }
 
+    useEffect(() => {
+        const screenElement = document.querySelector('.screen');
+        if (screenElement) {
+            if (error) {
+                screenElement.classList.add('error-shadow');
+            } else {
+                screenElement.classList.remove('error-shadow');
+            }
+        }
+    }, [error]);
+
+    useEffect(() => {
+        const screenElement = document.querySelector('.screen');
+        if (screenElement) {
+            if (isLoading) {
+                screenElement.classList.add('fetching-shadow');
+            } else {
+                screenElement.classList.remove('fetching-shadow');
+            }
+        }
+    }, [isLoading]);
+
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (!file) return
@@ -143,7 +177,9 @@ export default function Main() {
     }
 
     return (
-        <div className="main-container">
+        <div className={`main-container ${robotoFont.className}`}>
+            <div className={`title ${poppinstFont.className}`}>ZERO WASTE</div>
+                
             <div className="screen">
                 <div className="video-container">
                     {capturedImage ? (
@@ -180,21 +216,24 @@ export default function Main() {
                     </label>
                 </div>
                 
-                {error && <div className="error-message">{error}</div>}
-                {data ? (<div className="item-name">{item}</div>):
-                <div>
-                    Loading
-                </div>}
-                
-                {data && (
-                    <div className="results">
-                        <p>{data.item_description}</p>
-                        <hr />
-                        <p>{data.recyclable_method}</p>
-                        <hr />
-                        <p>{data.safe_waste_disposal}</p>
-                    </div>
-                )}
+                <div className="bottom">
+                    {error && <div className="error-message">{error}</div>}
+                    {data && (<div className={`item-name ${robotoFont.className}`}>{item}</div>)}
+                    
+                    {data && (
+                        <div className={`results ${poppinstFont.className}`}>
+                            <div className="labels">
+                                <span><strong className="label">Item Description:</strong> <br /> {data.item_description}</span>
+                            </div>
+                            <div className="labels">
+                                <span><strong className="label">Recycling Method:</strong> <br />{data.recyclable_method}</span>
+                            </div>
+                            <div className="labels">
+                                <span><strong className="label">Safe Waste Disposal Method:</strong><br /> {data.safe_waste_disposal}</span>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     )
